@@ -1,0 +1,62 @@
+---
+
+- name: "Check if libvirt_exporter is installed"
+  ansible.builtin.stat:
+    path: "{{ _binary_install_dir }}/prometheus-libvirt-exporter"
+  register: libvirt_exporter_stat
+
+- name: "Check libvirt_exporter version"
+  ansible.builtin.command:
+    cmd: "{{ _binary_install_dir }}/prometheus-libvirt-exporter --version"
+  register: libvirt_exporter_installed_version
+  when: libvirt_exporter_stat.stat.exists
+  changed_when: false
+
+- name: "Set libvirt_exporter version fact"
+  ansible.builtin.set_fact:
+    libvirt_exporter_installed_version: "{{ libvirt_exporter_installed_version.stderr_lines[0] | regex_search('version ([0-9.]+)', '\\1') | first }}"
+  when: libvirt_exporter_stat.stat.exists
+  changed_when: false
+
+- name: "Download and install libvirt_exporter or update if needed"
+  when: not libvirt_exporter_stat.stat.exists or libvirt_exporter_installed_version != libvirt_exporter_version
+  block:
+    - name: "Download libvirt_exporter from GitHub"
+      ansible.builtin.get_url:
+        url: "{{ libvirt_exporter_download_url }}"
+        dest: "/tmp/prometheus-libvirt-exporter.tar.gz"
+        mode: '0644'
+        force: false
+        validate_certs: false
+
+    - name: "Extract libvirt_exporter"
+      ansible.builtin.unarchive:
+        src: "/tmp/prometheus-libvirt-exporter.tar.gz"
+        dest: "/tmp/"
+        remote_src: true
+        extra_opts:
+          - --strip-components=1
+          - --no-same-owner
+
+    - name: "Copy libvirt_exporter binary"
+      ansible.builtin.copy:
+        src: "/tmp/prometheus-libvirt-exporter"
+        dest: "{{ _binary_install_dir }}/prometheus-libvirt-exporter"
+        mode: '0755'
+        remote_src: true
+
+- name: "Copy libvirt_exporter systemd service"
+  ansible.builtin.template:
+    src: "prometheus-libvirt-exporter.service.j2"
+    dest: "/etc/systemd/system/prometheus-libvirt-exporter.service"
+    mode: '0644'
+
+- name: "Reload systemd daemon"
+  ansible.builtin.systemd:
+    daemon_reload: true
+
+- name: "Start libvirt_exporter service"
+  ansible.builtin.systemd:
+    name: "prometheus-libvirt-exporter"
+    state: started
+    enabled: true

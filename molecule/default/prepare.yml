@@ -1,0 +1,21 @@
+---
+- name: Prepare
+  hosts: all
+  become: true
+
+  pre_tasks:
+    - name: "Update apt cache"
+      ansible.builtin.apt:
+        update_cache: true
+
+    - name: "Install libvirt"
+      ansible.builtin.apt:
+        pkg:
+          - qemu-kvm
+          - libvirt-daemon-system
+
+    - name: "Start libvirtd"
+      ansible.builtin.systemd:
+        name: libvirtd
+        state: started
+        enabled: true

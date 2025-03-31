@@ -1,0 +1,8 @@
+---
+libvirt_exporter_repo: "https://github.com/inovex/prometheus-libvirt-exporter"
+libvirt_exporter_version: "1.7.0"
+libvirt_exporter_download_url: "{{ libvirt_exporter_repo }}/releases/download/v{{ libvirt_exporter_version }}\
+  /prometheus-libvirt-exporter-{{ libvirt_exporter_version }}.{{ os_type }}-{{ go_arch }}.tar.gz"
+
+libvirt_exporter_service_flags:
+  - --web.listen-address=:9177
