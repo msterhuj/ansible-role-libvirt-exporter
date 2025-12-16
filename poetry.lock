@@ -2,18 +2,18 @@
 
 [[package]]
 name = "ansible"
-version = "9.13.0"
+version = "12.2.0"
 description = "Radically simple IT automation"
 optional = false
-python-versions = ">=3.10"
+python-versions = ">=3.11"
 groups = ["main"]
 files = [
-    {file = "ansible-9.13.0-py3-none-any.whl", hash = "sha256:b64c6e8cad0171576e0ed4b1fd48a5dc551128580dbb979d0e8b4cd85b969074"},
-    {file = "ansible-9.13.0.tar.gz", hash = "sha256:b389a97d1e85c2b2ad6ace9e94f410111f69cc5aa3845c930c873b34c0ddd6e2"},
+    {file = "ansible-12.2.0-py3-none-any.whl", hash = "sha256:daafa5c528317f60f68033ad70c59733f4a7548b6255759183cfc7cf422c7fda"},
+    {file = "ansible-12.2.0.tar.gz", hash = "sha256:0563dfd33ebd28caf6ccdc7a6d22a7fdafbd9c9c42fefcae5179616a53a35211"},
 ]
 
 [package.dependencies]
-ansible-core = ">=2.16.14,<2.17.0"
+ansible-core = ">=2.19.4,<2.20.0"
 
 [[package]]
 name = "ansible-compat"
@@ -40,22 +40,22 @@ test = ["coverage", "pip", "pytest (>=7.2.0)", "pytest-instafail", "pytest-mock"
 
 [[package]]
 name = "ansible-core"
-version = "2.16.14"
+version = "2.19.5"
 description = "Radically simple IT automation"
 optional = false
-python-versions = ">=3.10"
+python-versions = ">=3.11"
 groups = ["main"]
 files = [
-    {file = "ansible_core-2.16.14-py3-none-any.whl", hash = "sha256:b7b6df2fb0cf065b091d0332e98afbe4b028f2ffe58078e7dcf83f09e35cc8ad"},
-    {file = "ansible_core-2.16.14.tar.gz", hash = "sha256:80279fffd98686badfaa32e1ec785d98a6df1b2fc1e4097dec0597640d746415"},
+    {file = "ansible_core-2.19.5-py3-none-any.whl", hash = "sha256:7fa6c052bad2c294284b960d240b4cd227060fd2e3836d381db44d2bcfcdf4b7"},
+    {file = "ansible_core-2.19.5.tar.gz", hash = "sha256:d03660ff32ba8a5ae40a82148cb24b38a35d26c0155621ddd9148b7562fd8be2"},
 ]
 
 [package.dependencies]
 cryptography = "*"
-jinja2 = ">=3.0.0"
+jinja2 = ">=3.1.0"
 packaging = "*"
 PyYAML = ">=5.1"
-resolvelib = ">=0.5.3,<1.1.0"
+resolvelib = ">=0.5.3,<2.0.0"
 
 [[package]]
 name = "attrs"
@@ -1163,4 +1163,4 @@ bracex = ">=2.1.1"
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.12"
-content-hash = "a5e5bedc4618aa77e225af7ed98eb35431bab9960af7d9ae879a99400d97f625"
+content-hash = "c113093f62a310356daf7838f30a029fa9a6bcc4746481cfb94d217bd31d0fd4"
